@@ -1,0 +1,93 @@
+import java.util.*;
+public interface Searching {
+	int binary_search(int arr[], int l, int r, int x);
+	int linear_search(int arr[], int n, int x);
+}
+
+class Test implements Searching
+{
+	public int binary_search(int arr[], int l, int r, int x)
+	{
+		if (r >= l) 
+		{ 
+            int mid = l + (r - l) / 2;
+            if (arr[mid] == x)
+            {
+                return mid;
+            }
+            if (arr[mid] > x)
+            {
+            	 return binary_search(arr, l, mid - 1, x);
+            }
+            return binary_search(arr, mid + 1, r, x);
+		}
+		return -1;
+	}
+	
+	public int linear_search(int arr[], int n, int x)
+	{
+		for(int i=0;i<n;i++)
+		{
+			if(arr[i] == x)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	
+	public static void main(String args[])
+	{
+		Test t = new Test();
+		Scanner s = new Scanner(System.in);
+		
+		System.out.println("1. Binary Search");
+		System.out.println("2. Linear Search");
+		int choice = Integer.parseInt(s.nextLine());
+		if(choice == 1)
+		{
+			System.out.println("Enter size of the array");
+			int n = s.nextInt();
+			int arr[] = new int[n];
+			System.out.println("Enter array elements");
+			for(int i=0;i<n;i++)
+			{
+				arr[i] = s.nextInt();
+			}
+			System.out.println("Enter the element to be searched");
+			int x = s.nextInt();
+			int result = t.binary_search(arr, 0, n-1, x);
+			if(result == -1)
+			{
+				System.out.println("Element not found");
+			}
+			else
+			{
+				System.out.println("Element found at "+result);
+			}
+			
+		}
+		if(choice == 2)
+		{
+			System.out.println("Enter size of the array");
+			int n = s.nextInt();
+			int arr[] = new int[n];
+			for(int i=0;i<n;i++)
+			{
+				arr[i] = s.nextInt();
+			}
+			System.out.println("Enter the element to be searched");
+			int x = s.nextInt();
+			int result = t.linear_search(arr, n, x);
+			if(result == -1)
+			{
+				System.out.println("Element not found");
+			}
+			else
+			{
+				System.out.println("Element found at "+result);
+			}
+		}
+	}
+}
